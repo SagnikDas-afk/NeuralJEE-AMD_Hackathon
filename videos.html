@@ -1,0 +1,113 @@
+<!-- VIDEOS PAGE -->
+<div id="page-videos" class="page">
+  <div class="ph">
+    <h1>¶ Video Library</h1>
+    <p>// 36 curated JEE videos · add your own · track what you've watched</p>
+  </div>
+
+  <!-- Section Tabs -->
+  <div class="vtabs-row">
+    <button class="vtab active" id="vtab-all" onclick="setVidSection('all',this)">
+      All Videos <span class="vtab-count">0</span>
+    </button>
+    <button class="vtab" id="vtab-library" onclick="setVidSection('library',this)">
+      =Ú JEE Library <span class="vtab-count">0</span>
+    </button>
+    <button class="vtab" id="vtab-mine" onclick="setVidSection('mine',this)">
+      P My Videos <span class="vtab-count">0</span>
+    </button>
+    <button class="vtab" id="vtab-watched" onclick="setVidSection('all',document.getElementById('vtab-all'));filterVids('watched',null)">
+       Watched <span class="vtab-count">0</span>
+    </button>
+    <button class="vid-add-btn" onclick="document.getElementById('add-vid-modal').classList.add('open')"> Add Video</button>
+  </div>
+
+  <!-- Search + Subject Filter Row -->
+  <div class="vid-controls-row">
+    <div class="vid-search-wrap">
+      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;">=</span>
+      <input id="vsearch" type="text" placeholder="Search topic, title, channel..." oninput="searchVids()"/>
+    </div>
+    <div class="subj-filters" style="margin:0;flex-wrap:nowrap;">
+      <button class="f-btn active" onclick="filterVids('all',this)">All</button>
+      <button class="f-btn" onclick="filterVids('physics',this)" style="color:var(--physics)">› Physics</button>
+      <button class="f-btn" onclick="filterVids('chemistry',this)" style="color:var(--chemistry)">>ê Chemistry</button>
+      <button class="f-btn" onclick="filterVids('mathematics',this)" style="color:var(--math)"> Maths</button>
+      <button class="f-btn" onclick="filterVids('unwatched',this)">=2 Unwatched</button>
+    </div>
+  </div>
+
+  <!-- Video Grid -->
+  <div class="videos-grid" id="vids-grid"></div>
+
+  <!-- ADD VIDEO MODAL -->
+  <div class="modal-overlay" id="add-vid-modal" onclick="if(event.target===this)this.classList.remove('open')">
+    <div class="modal-box" style="max-width:500px;">
+      <div class="modal-hdr">
+        <h3> Add Your Video</h3>
+        <button class="modal-close" onclick="document.getElementById('add-vid-modal').classList.remove('open')">&#x2715;</button>
+      </div>
+      <div class="modal-form">
+        <div style="background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.2);border-radius:8px;padding:12px 14px;margin-bottom:18px;font-size:12px;color:var(--muted);line-height:1.7;">
+          Paste any YouTube link &mdash; <code style="color:var(--accent);font-size:11px;">youtube.com/watch?v=...</code> or <code style="color:var(--accent);font-size:11px;">youtu.be/...</code> or just the 11-char video ID
+        </div>
+        <div class="form-group">
+          <label>YOUTUBE URL OR VIDEO ID *</label>
+          <input type="text" id="av-url" placeholder="https://www.youtube.com/watch?v=..." oninput="previewThumb()" autocomplete="off"/>
+          <div id="av-thumb-preview" style="display:none;margin-top:10px;border-radius:8px;overflow:hidden;max-width:220px;aspect-ratio:16/9;background:var(--surface2);">
+            <img id="av-thumb-img" src="" alt="preview" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="document.getElementById('av-thumb-preview').style.display='none'">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>TITLE *</label>
+          <input type="text" id="av-title" placeholder="e.g. Newton Laws Full Chapter JEE 2026"/>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label>SUBJECT</label>
+            <select id="av-subj">
+              <option value="physics">Physics</option>
+              <option value="chemistry">Chemistry</option>
+              <option value="mathematics">Mathematics</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label>TOPIC</label>
+            <input type="text" id="av-topic" placeholder="e.g. Kinematics"/>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="addVid()" style="margin-top:20px;width:100%;">Add to My Videos</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO PLAYER MODAL -->
+  <div class="modal-overlay" id="vid-player-modal" onclick="if(event.target===this)closeVidPlayer()">
+    <div class="modal-box" style="max-width:820px;">
+      <div class="modal-hdr" style="display:flex;align-items:center;gap:8px;">
+        <h3 id="vp-title" style="font-size:14px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0;">Video</h3>
+        <button onclick="openYouTube(currentPlayingVidId)" style="padding:5px 12px;background:rgba(255,0,0,.12);border:1px solid rgba(255,0,0,.35);border-radius:6px;color:#ff5252;font-size:11px;cursor:pointer;font-family:'Syne',sans-serif;white-space:nowrap;flex-shrink:0;">&#x2197; YouTube</button>
+        <button class="modal-close" onclick="closeVidPlayer()">&#x2715;</button>
+      </div>
+      <div id="vp-fallback" style="display:none;padding:40px 24px;text-align:center;background:var(--surface2);">
+        <div style="font-size:48px;margin-bottom:14px;">&#x1F4FA;</div>
+        <h3 style="font-size:16px;margin-bottom:8px;font-weight:700;">Embedding Not Available</h3>
+        <p style="color:var(--muted);font-size:13px;margin-bottom:5px;">The video owner has disabled embedding on third-party sites.</p>
+        <p style="color:var(--muted);font-size:12px;margin-bottom:24px;">Watch it on YouTube, then come back and mark it watched.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <button onclick="openYouTube(currentPlayingVidId)" style="padding:12px 28px;background:#ff0000;border:none;border-radius:8px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;">&#x25B6; Watch on YouTube</button>
+          <button onclick="toggleWatched(currentPlayingVidId);showToast('Marked as watched!')" style="padding:12px 22px;background:rgba(127,255,106,.1);border:1px solid rgba(127,255,106,.3);border-radius:8px;color:var(--accent3);font-size:14px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;">&#x2705; Mark Watched</button>
+        </div>
+      </div>
+      <div id="vp-player-wrap" style="background:#000;">
+        <iframe id="vp-iframe" src="" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture" style="width:100%;aspect-ratio:16/9;border:none;display:block;"></iframe>
+      </div>
+      <div style="padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button class="btn-sec" onclick="markWatched()" id="watch-btn" style="font-size:12px;">&#x2705; Mark as Watched</button>
+        <button onclick="openYouTube(currentPlayingVidId)" class="btn-sec" style="font-size:12px;color:#ff5252;border-color:rgba(255,82,82,.3);">&#x2197; Open in YouTube</button>
+        <span style="font-size:11px;color:var(--accent3);font-family:'Space Mono',monospace;margin-left:auto;" id="watch-status"></span>
+      </div>
+    </div>
+  </div>
+
+</div>

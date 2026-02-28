@@ -1,0 +1,53 @@
+<!-- DASHBOARD PAGE -->
+<div id="page-dashboard" class="page active">
+  <div class="ph"><h1 id="dwelcome">Welcome back! 👋</h1><p>// your preparation overview for today</p></div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="lbl">DAYS TO JEE</div><div class="val" id="djee" style="color:var(--accent2)">--</div><div class="sub">Jan 28, 2026 Session 1</div></div>
+    <div class="stat-card"><div class="lbl">NOTES SAVED</div><div class="val" id="stat-notes" style="color:var(--accent)">0</div><div class="sub">across all subjects</div></div>
+    <div class="stat-card"><div class="lbl">CARDS TODAY</div><div class="val" id="stat-cards" style="color:var(--accent3)">0</div><div class="sub">flashcards reviewed</div></div>
+    <div class="stat-card"><div class="lbl">LAST SCORE</div><div class="val" id="stat-score" style="color:var(--accent4)">--</div><div class="sub">mock test</div></div>
+    <div class="stat-card" style="cursor:pointer;" onclick="nav('creditscore', document.querySelector('[onclick*=creditscore]'))"><div class="lbl">CREDIT SCORE</div><div class="val" id="stat-credit" style="color:var(--accent)"></div><div class="sub">JEE readiness / 1000</div></div>
+    <div class="stat-card"><div class="lbl">STUDY STREAK</div><div class="val" id="stat-streak" style="color:var(--accent2)">0</div><div class="sub">days in a row 🔥</div></div>
+    <div class="stat-card"><div class="lbl">VIDEOS WATCHED</div><div class="val" id="stat-watched" style="color:var(--physics)">0</div><div class="sub">total watched</div></div>
+  </div>
+
+  <!-- Activity Heatmap -->
+  <div class="heatmap-section">
+    <h3>📊 Study Activity</h3>
+    <div class="heatmap-sub" id="heatmap-total">0 contributions in the last year</div>
+    <div id="heatmap-container"></div>
+    <div class="heatmap-legend">
+      Less <div class="hm-day" data-level="0"></div><div class="hm-day" data-level="1"></div><div class="hm-day" data-level="2"></div><div class="hm-day" data-level="3"></div><div class="hm-day" data-level="4"></div> More
+    </div>
+    <div class="streak-badges">
+      <div class="streak-badge"><div class="sv" id="streak-cur" style="color:var(--accent2)">0</div><div class="sl">CURRENT STREAK 🔥</div></div>
+      <div class="streak-badge"><div class="sv" id="streak-max" style="color:var(--accent4)">0</div><div class="sl">LONGEST STREAK</div></div>
+      <div class="streak-badge"><div class="sv" id="streak-total" style="color:var(--accent3)">0</div><div class="sl">TOTAL SESSIONS</div></div>
+    </div>
+  </div>
+
+  <div class="dash-grid">
+    <div class="card-box">
+      <h3>📅 JEE Important Dates</h3>
+      <div class="date-item">
+        <div class="date-badge"><div class="mo">JAN</div><div class="dy">28</div></div>
+        <div class="date-info"><h4>JEE Mains 2026 — Session 1</h4><p>Computer Based Test · All India</p><span class="cd" id="cd1"></span></div>
+      </div>
+      <div class="date-item">
+        <div class="date-badge"><div class="mo">APR</div><div class="dy">05</div></div>
+        <div class="date-info"><h4>JEE Mains 2026 — Session 2</h4><p>Computer Based Test · All India</p><span class="cd" id="cd2"></span></div>
+      </div>
+      <div class="date-item">
+        <div class="date-badge" style="background:rgba(199,125,255,.08);border-color:rgba(199,125,255,.25)"><div class="mo" style="color:var(--accent4)">MAY</div><div class="dy" style="color:var(--accent4)">25</div></div>
+        <div class="date-info"><h4>JEE Advanced 2026</h4><p>IIT Delhi · Paper 1 &amp; 2</p><span class="cd" id="cd3" style="background:rgba(199,125,255,.1);border-color:rgba(199,125,255,.3);color:var(--accent4)"></span></div>
+      </div>
+    </div>
+    <div class="card-box">
+      <h3>📈 Test Score History</h3>
+      <div class="score-history" id="score-history"></div>
+      <div style="font-size:10px;color:var(--muted);margin-top:8px;font-family:'Space Mono',monospace;">Last 10 mock test scores</div>
+      <div class="chart-bar-wrap" id="subj-accuracy" style="margin-top:16px;"></div>
+    </div>
+  </div>
+</div>

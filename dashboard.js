@@ -28,7 +28,7 @@
       <option value="gemini">Gemini (Google)</option>
       <option value="groq" selected>Groq (Llama)</option>
     </select>
-    <input class="api-key-inp" id="api-key-inp" type="password" placeholder="AIzaSy... or gsk_..." value="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"/>
+    <input class="api-key-inp" id="api-key-inp" type="password" placeholder="AIzaSy... or gsk_..." value=process.env.GROQ_API_KEY/>
     <button class="api-save-btn" onclick="saveApiKey()">Save Key</button>
   </div>
 

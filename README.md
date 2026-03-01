@@ -1,0 +1,13 @@
+## NeuralJEE
+
+NeuralJee is an AI-driven platform designed to transform JEE preparation through hyper-personalized learning. By leveraging machine learning, the system continuously analyzes student performance to identify knowledge gaps and generate adaptive study plans.
+
+Acting as a 24/7 intelligent mentor, NeuralJee offers a comprehensive suite of tools, including:
+
+- Adaptive Testing: Chapter-wise and full-length mock exams (Mains & Advanced) that adjust difficulty in real-time.
+
+- AI-Curated Content: Targeted question banks and daily recommended practice sets.
+
+- Performance Analytics: Detailed dashboards tracking progress, improvement trends, and concept-level feedback.
+
+By combining intuitive design with advanced technology, NeuralJee ensures that elite, high-quality JEE coaching is both accessible and affordable for every aspirant.

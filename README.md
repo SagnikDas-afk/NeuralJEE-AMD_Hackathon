@@ -14,3 +14,4 @@ Acting as a 24/7 intelligent mentor, NeuralJee offers a comprehensive suite of t
 - Performance Analytics: Detailed dashboards tracking progress, improvement trends, and concept-level feedback.
 
 By combining intuitive design with advanced technology, NeuralJee ensures that elite, high-quality JEE coaching is both accessible and affordable for every aspirant.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
